@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@import "@uploadthing/react/styles.css";
+
+@theme {
+    --font-inter: "Inter", sans-serif;
+    --color-primary: #9e001c;
+    --color-primary-dark: #7a0016;
+    --color-secondary: #d4af37;
+    --color-secondary-light: #f4cf5a;
+
+    --animate-fade-in: fade-in 0.5s ease-out forwards;
+    --animate-slide-up: slide-up 0.5s ease-out forwards;
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slide-up {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+:root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+}
+
+body {
+    background-color: var(--background);
+    color: var(--foreground);
+}
+
+@layer components {
+    .btn-primary {
+        @apply bg-primary hover:bg-primary-dark text-white font-bold transition-all duration-300 rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:-translate-y-0.5;
+    }
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary font-black;
+    }
+}
