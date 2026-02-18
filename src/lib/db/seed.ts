@@ -22,7 +22,7 @@ async function seed() {
                 price: prod.preco.toString(),
                 stock: prod.estoque,
                 category: prod.categoria,
-                imageUrl: prod.url_imagem,
+                images: [prod.url_imagem],
             });
         }
 

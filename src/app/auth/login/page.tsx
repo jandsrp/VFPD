@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { toast } from 'sonner';
 import Link from 'next/link';
 
-export default function LoginPage() {
+function LoginForm() {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -41,42 +41,54 @@ export default function LoginPage() {
     }
 
     return (
+        <Card className="w-full max-w-md border-none shadow-xl rounded-3xl">
+            <CardHeader className="space-y-1">
+                <CardTitle className="text-3xl font-black text-gray-900">Entrar</CardTitle>
+                <CardDescription className="text-gray-500">
+                    Bem-vindo de volta! Faça login para continuar.
+                </CardDescription>
+            </CardHeader>
+            <form onSubmit={handleSubmit}>
+                <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                        <Label htmlFor="email">E-mail</Label>
+                        <Input id="email" name="email" type="email" placeholder="example@gmail.com" required className="rounded-xl h-12" />
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="password">Senha</Label>
+                        <Input id="password" name="password" type="password" required className="rounded-xl h-12" />
+                    </div>
+                </CardContent>
+                <CardFooter className="flex flex-col space-y-4">
+                    <Button
+                        type="submit"
+                        className="w-full h-12 rounded-xl text-lg font-bold bg-primary hover:bg-primary/90 transition-all"
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "Entrando..." : "Entrar"}
+                    </Button>
+                    <p className="text-sm text-gray-500 text-center">
+                        Ainda não tem uma conta?{" "}
+                        <Link href="/auth/register" className="text-primary font-bold hover:underline">
+                            Cadastre-se aqui
+                        </Link>
+                    </p>
+                </CardFooter>
+            </form>
+        </Card>
+    );
+}
+
+export default function LoginPage() {
+    return (
         <div className="flex items-center justify-center min-h-[calc(100vh-80px)] bg-gray-50 px-4">
-            <Card className="w-full max-w-md border-none shadow-xl rounded-3xl">
-                <CardHeader className="space-y-1">
-                    <CardTitle className="text-3xl font-black text-gray-900">Entrar</CardTitle>
-                    <CardDescription className="text-gray-500">
-                        Bem-vindo de volta! Faça login para continuar.
-                    </CardDescription>
-                </CardHeader>
-                <form onSubmit={handleSubmit}>
-                    <CardContent className="space-y-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="email">E-mail</Label>
-                            <Input id="email" name="email" type="email" placeholder="example@gmail.com" required className="rounded-xl h-12" />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="password">Senha</Label>
-                            <Input id="password" name="password" type="password" required className="rounded-xl h-12" />
-                        </div>
-                    </CardContent>
-                    <CardFooter className="flex flex-col space-y-4">
-                        <Button
-                            type="submit"
-                            className="w-full h-12 rounded-xl text-lg font-bold bg-primary hover:bg-primary/90 transition-all"
-                            disabled={isLoading}
-                        >
-                            {isLoading ? "Entrando..." : "Entrar"}
-                        </Button>
-                        <p className="text-sm text-gray-500 text-center">
-                            Ainda não tem uma conta?{" "}
-                            <Link href="/auth/register" className="text-primary font-bold hover:underline">
-                                Cadastre-se aqui
-                            </Link>
-                        </p>
-                    </CardFooter>
-                </form>
-            </Card>
+            <Suspense fallback={
+                <Card className="w-full max-w-md border-none shadow-xl rounded-3xl p-8 flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                </Card>
+            }>
+                <LoginForm />
+            </Suspense>
         </div>
     );
 }

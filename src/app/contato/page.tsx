@@ -18,16 +18,34 @@ export default function ContactPage() {
     return (
         <div className="pb-24">
             {/* Hero Section */}
-            <section className="bg-gray-900 py-24 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+            <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
+                {/* Background Image */}
+                <div className="absolute inset-0 z-0">
+                    <AnimatedImage
+                        src="/images/img/img-3.png"
+                        alt="VFPD Galpão e Logística"
+                        className="w-full h-full object-cover"
+                        containerClassName="w-full h-full"
+                    />
+                    <div className="absolute inset-0 bg-gray-900/70 backdrop-blur-[2px]"></div>
+                </div>
+
                 <div className="container mx-auto px-4 relative z-10 text-center">
-                    <Reveal>
-                        <h1 className="text-6xl md:text-7xl font-black text-white mb-6 uppercase tracking-tighter">Contato</h1>
-                        <p className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto">
-                            Estamos prontos para atender suas demandas e impulsionar seu sucesso.
+                    <Reveal duration={0.8} y={30}>
+                        <div className="inline-block px-4 py-1.5 bg-[#a65d37]/20 backdrop-blur-md rounded-full text-[#f4e4d4] text-[10px] font-black uppercase tracking-[0.2em] mb-6">
+                            Atendimento Exclusivo
+                        </div>
+                        <h1 className="text-6xl md:text-7xl font-black text-white mb-6 uppercase tracking-tighter shadow-sm">
+                            Contato
+                        </h1>
+                        <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto font-medium leading-relaxed">
+                            Estamos prontos para atender suas demandas e impulsionar seu sucesso com soluções sob medida.
                         </p>
                     </Reveal>
                 </div>
+
+                {/* Decorative Bottom Curve */}
+                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
             </section>
 
             <section className="py-24 bg-white">
